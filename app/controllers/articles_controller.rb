@@ -12,6 +12,10 @@ class ArticlesController < ApplicationController
 		@article = Article.new #added this after adding validation bc otherwise @article would be nil in view, and calling @article.errors.any? would throw error
 	end
 
+	def edit
+		@article = Article.find(params[:id])
+	end
+
 	def create
 		# 1) render plain: params[:article].inspect
 		#params method - object which rep the parameters (or fields) from form
@@ -30,6 +34,15 @@ class ArticlesController < ApplicationController
 		end
 
 	end
+
+	def update #accepts a hash containing the attributes that you want to update
+		@article = Article.find(params[:id])
+		if @article.update(article_params) #if @article.update(title: 'A new title') was called, only update the title attribute
+			redirect_to @article
+		else
+			render 'edit'
+		end
+	end	
 
 	#strong parameters - requires us to tell Rails exactly which parameters are allowed into our controller actions (security)
 	#have to WHITELIST our controller parameters to prevent wrongful mass assignment
