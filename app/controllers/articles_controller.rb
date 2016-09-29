@@ -9,6 +9,7 @@ class ArticlesController < ApplicationController
 	end
 
 	def new
+		@article = Article.new #added this after adding validation bc otherwise @article would be nil in view, and calling @article.errors.any? would throw error
 	end
 
 	def create
@@ -21,9 +22,12 @@ class ArticlesController < ApplicationController
 
 		# 3) change to include article_params
 		@article = Article.new(article_params)
-		@article.save #save the model in the db
-		redirect_to @article #redirect user to the show action --> returns boolean indicating whether article was saved or not
-		
+		#with the validation in place, saving an invalid article will return false, and we need to show the form back 
+		if @article.save #save the model in the db
+			redirect_to @article #redirect user to the show action --> returns boolean indicating whether article was saved or not
+		else
+			render 'new' #render used (instead of redirect_to) so that @article object is passed back to the new template when rendered - done w/in same request as form submission (redirect_to will tell browser to issue another request)
+		end
 
 	end
 
