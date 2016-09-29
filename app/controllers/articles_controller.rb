@@ -44,6 +44,12 @@ class ArticlesController < ApplicationController
 		end
 	end	
 
+	def destroy
+		@article = Article.find(params[:id])
+		@article.destroy
+
+		redirect_to articles_path
+	end
 	#strong parameters - requires us to tell Rails exactly which parameters are allowed into our controller actions (security)
 	#have to WHITELIST our controller parameters to prevent wrongful mass assignment
 	private #makes sure it can't be called outside its intended context

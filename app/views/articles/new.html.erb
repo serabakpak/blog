@@ -1,35 +1,10 @@
 <h1>New Article</h1>
-<!-- Error Message -->
-<%= form_for :article, url: articles_path do |f| %>
-	<% if @article.errors.any? %>
-		<div id="error_explanation">
-			<h2> 
-			<!-- pluralize - rails helper that takes in a number and string; if number > 1 then string is auto-pluralized -->
-				<%= pluralize(@article.errors.count, "error") %> prohibited this article from being saved:
-			</h2>	
-			<ul>
-				<% @article.errors.full_messages.each do |msg| %>
-					<li><%= msg %></li>
-				<% end %>
-			</ul>
-		</div>
-	<% end %>
+<!-- before using a partial view -->
+ <!-- form_for :article, url: articles_path do |f|  -->
+	
 
-<!-- Form -->
-	<p>
-		<%= f.label :title %><br>
-		<%= f.text_field :title %>
-	</p>
 
-	<p>
-		<%= f.label :text %><br>
-		<%= f.text_area :text %>
-	</p>
-	<p>
-		<%= f.submit %>
-	</p>
-<% end %>
-
+<%= render 'form' %>
 <%= link_to 'Back', articles_path %>
 
 
