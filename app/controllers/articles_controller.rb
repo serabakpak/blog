@@ -1,4 +1,9 @@
 class ArticlesController < ApplicationController
+	def show
+		@article = Article.find(params[:id]) #params[:id] is passed in the .find method to get the :id parameter from the request
+		#instance var used to hold a reference to the article object bc Rails will pass all instance vars to the view
+	end
+
 	def new
 
 	end
